@@ -598,4 +598,25 @@ VALUES
 ALTER TABLE users add column status varchar(12) default 'Active';
 ALTER TABLE products add column status varchar(12) default 'Active';
 ALTER TABLE reviews add column status varchar(12) default 'Active';
-select * from products
+select * from products;
+
+ALTER TABLE Products ADD COLUMN OldPrice DECIMAL(10,2) NULL;
+UPDATE Products
+SET OldPrice = Price * 1.10
+WHERE IsPromoted = 1;
+
+Use ecommercedb;
+CREATE TABLE Guest (
+    GuestID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NULL,
+    LastName VARCHAR(50) NULL,
+    Gender VARCHAR(10) NULL,
+    Email VARCHAR(100) NULL,
+    PhoneNumber VARCHAR(20) NULL,
+    Address TEXT NULL
+);
+
+ALTER TABLE Orders 
+    ADD COLUMN GuestID INT, 
+    ADD CONSTRAINT FK_Guest FOREIGN KEY (GuestID) REFERENCES Guest(GuestID);
+ALTER TABLE Guest add column status varchar(12) default 'Active';
